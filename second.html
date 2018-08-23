@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <script src="https://cdn.bootcss.com/echarts/4.1.0.rc2/echarts.min.js"></script> -->
+    
+    <script src="echarts.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+    <div id="main" style="width: 251px;height:254px;margin-left: 20px"></div>
+
+    <script>
+        var myChart = echarts.init(document.getElementById('main'));
+        var posList = [
+            'left', 'right', 'top', 'bottom',
+            'inside',
+            'insideTop', 'insideLeft', 'insideRight', 'insideBottom',
+            'insideTopLeft', 'insideTopRight', 'insideBottomLeft', 'insideBottomRight'
+        ];
+
+        // var labelOption = {
+        //     normal: {
+                // show: true,
+                // formatter: '{c}  {name|{a}}',
+                // fontSize: 16,
+                // rich: {
+                //     name: {
+                //         textBorderColor: '#fff'
+                //     }
+                // }
+        //     }
+        // };
+
+        option = {
+            color: ['#006699','yellow'],
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            legend: {
+                data: ['Forest', 'Steppe']
+            },
+            toolbox: {
+                show: true,
+                orient: 'vertical',
+                left: 'right',
+                top: 'center',
+                // feature: {
+                //     mark: { show: true },
+                //     dataView: { show: true, readOnly: false },
+                //     magicType: { show: true, type: ['line', 'bar', 'stack', 'tiled'] },
+                //     restore: { show: true },
+                //     saveAsImage: { show: true }
+                // }
+            },
+            calculable: true,
+            xAxis: [
+                {
+                    type: 'category',
+                    axisTick: { show: false },
+                    data: ['北京院', '上海院', '常州院']
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value'
+                }
+            ],
+            series: [
+                {
+                    name: 'Forest',
+                    type: 'bar',
+                    barGap: 0,
+                    // label: labelOption,
+                    data: [320, 332, 301]
+                },
+                {
+                    name: 'Steppe',
+                    type: 'bar',
+                    // label: labelOption,
+                    data: [220, 182, 191]
+                }             
+            ]
+        };
+        myChart.setOption(option);
+    </script>
+</body>
+
+</html>

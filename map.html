@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./resize.css">
+  <script src="echarts.js"></script>
+  <script src="./jquery.min.js"></script>
+  <script src="./bootstrap.min.js"></script>
+  <script src="./supershopui.common.js"></script>
+  <script src="http://api.map.baidu.com/api?ak=TbBvGRzOkYHrUiTTFaFuynjGGuc5VfPG&v=3.0"></script>
+  <!-- <script src="map/js/china.js"></script> -->
+  <title>Document</title>
+  <style>
+    .content {
+      width: 100%;
+      height: 100%;
+      background-color: #104E8B;
+    }
+
+    .top {
+      overflow: hidden;
+    }
+
+    .content h2 {
+      color: white;
+      margin-left: 50px;
+      margin-bottom: 50px;
+    }
+
+    .left {
+      float: left;
+      margin-left: 10px;
+    }
+
+    .left-tu-wrap {
+      width: 280px;
+      height: 250px;
+      border: 1px solid #0000CD;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .left-tu-wrap h3 {
+      text-align: center;
+      color: #fff;
+    }
+
+    .left-tu {
+      width: 258px;
+      height: 195px;
+      background-color: #6495ED;
+      margin: 15px auto;
+    }
+
+    .left-pic-wrap {
+      width: 280px;
+      height: 250px;
+      border: 1px solid #0000CD;
+      border-radius: 10px;
+    }
+
+    .left-pic-wrap h3 {
+      text-align: center;
+      color: #fff;
+    }
+
+    .left-pic {
+      width: 258px;
+      height: 195px;
+      background-color: #6495ED;
+      margin: 15px auto;
+    }
+
+    .map {
+      float: left;
+      margin-top: 20px;
+      width: 610px;
+      height: 510px;
+      margin: 0 5px 15px;
+    }
+
+    .right {
+      float: left;
+    }
+
+    .right-tu-wrap {
+      width: 280px;
+      height: 250px;
+      border: 1px solid #0000CD;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .right-tu-wrap h3 {
+      text-align: center;
+      color: #fff;
+    }
+
+    .right-tu {
+      width: 258px;
+      height: 195px;
+      background-color: #6495ED;
+      margin: 15px auto;
+    }
+
+    .right-pic-wrap {
+      width: 280px;
+      height: 250px;
+      border: 1px solid #0000CD;
+      border-radius: 10px;
+    }
+
+    .right-pic-wrap h3 {
+      text-align: center;
+      color: #fff;
+    }
+
+    .right-pic {
+      /* opacity: 0.5; */
+      width: 258px;
+      height: 195px;
+      background-color: #6495ED;
+      margin: 15px auto;
+    }
+
+    .foot {
+      overflow: hidden;
+    }
+
+    .foot li {
+      float: left;
+      width: 280px;
+      height: 250px;
+      border: 1px solid #0000CD;
+      border-radius: 10px;
+      margin-left: 10px;
+    }
+
+    .foot li:nth-child(2) {
+      margin-left: 20px;
+      margin-right: 6px;
+    }
+
+    .foot li:nth-child(4) {
+      margin-left: 20px;
+    }
+
+    .foot li h4 {
+      text-align: center;
+      color: #fff;
+      margin-top: 10px;
+    }
+
+    #main4 {
+      height: 195px;
+      width: 258px;
+      background-color: #6495ED;
+      margin: 15px auto;
+    }
+
+    #main5 {
+      height: 195px;
+      width: 258px;
+      background-color: #6495ED;
+      margin: 15px auto;
+    }
+
+    #main6 {
+      height: 195px;
+      width: 258px;
+      background-color: #6495ED;
+      margin: 15px auto;
+    }
+
+    #main7 {
+      height: 195px;
+      width: 258px;
+      /* opacity: 0.1; */
+      background-color: #6495ED;
+      margin: 15px auto;
+    }
+  </style>
+</head>
+
+
+<body>
+  <div class="content">
+    <h2>综合展现</h2>
+    <div class="top">
+      <div class="left">
+        <div class="left-tu-wrap">
+          <h3>本年各单位项目分布</h3>
+          <div class="left-tu" id="main">
+          </div>
+        </div>
+        <div class="left-pic-wrap">
+          <h3>本年各单位项目分布</h3>
+          <div class="left-pic" id="main1"></div>
+        </div>
+      </div>
+      <div class="map" id="allmap"></div>
+      <div class="right">
+        <div class="right-tu-wrap">
+          <h3>本年各单位项目投资总额</h3>
+          <div class="right-tu" id="main2"></div>
+        </div>
+        <div class="right-pic-wrap">
+          <h3>集团公司历年项目投资走势</h3>
+          <div class="right-pic" id="main3"></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <ul class="foot">
+        <li>
+          <h4>本年各项目完成情况</h4>
+          <div id="main4"></div>
+        </li>
+        <li>
+          <h4>本年集团项目总体进度完成率</h4>
+          <div id="main5"></div>
+        </li>
+        <li>
+          <h4>本年集团项目总体预算完成率</h4>
+          <div id="main6"></div>
+        </li>
+        <li>
+          <h4>本年各单位项目分布</h4>
+          <div id="main7"></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <script>
+    //左上1
+    var myChart = echarts.init(document.getElementById('main'));
+    var posList = [
+      'left', 'right', 'top', 'bottom',
+      'inside',
+      'insideTop', 'insideLeft', 'insideRight', 'insideBottom',
+      'insideTopLeft', 'insideTopRight', 'insideBottomLeft', 'insideBottomRight'
+    ];
+    option = {
+      color: ['#006699', 'yellow'],
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow'
+        }
+      },
+      // title:{
+      //   '本年各单位项目完成情况'
+      // },
+      legend: {
+        data: ["计划数", '实际数']
+      },
+      toolbox: {
+        show: true,
+        orient: 'vertical',
+        left: 'right',
+        top: 'center',
+      },
+      calculable: true,
+      xAxis: [{
+        type: 'category',
+        axisTick: {
+          show: false
+        },
+        data: ['北京院', '上海院', '常州院']
+      }],
+      yAxis: [{
+        type: 'category',
+        max:'100%'
+        // axisLabel: {
+        //   interval: 0,
+        //   textStyle: {
+        //     color: '#fff',
+        //     // fontSize:'16'
+        //   },
+        //   // formatter: '{value}%'
+        // },
+      }],
+      grid: [{
+          left: '15%'
+        },
+        // {top: '55%'}
+      ],
+      series: [{
+          name: '计划数',
+          type: 'bar',
+          barGap: 0,
+          data: ['25%', '60%', '58%']
+        },
+        {
+          name: '实际数',
+          type: 'bar',
+          data: ['35%', '65%', '50%']
+        }
+      ]
+    };
+    myChart.setOption(option);
+
+
+    //左上2
+    var dom1 = document.getElementById("main1");
+    var myChart1 = echarts.init(dom1);
+    var app = {};
+    option1 = null;
+    option1 = {
+      tooltip: {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '23%',
+        containLabel: true
+      },
+      series: [{  
+        name: '各单位项目分布',
+        type: 'pie',
+        radius: '75%',
+        center: ['50%', '50%'],
+        barWidth: '60%',
+        data: [{
+            value: 335,
+            name: '上海',
+            itemStyle: {
+              color: 'red'
+            }
+          },
+          {
+            value: 310,
+            name: '重庆',
+            itemStyle: {
+              color: '#6A5ACD'
+            }
+          },
+          {
+            value: 234,
+            name: '武汉'
+          },
+          {
+            value: 135,
+            name: '常州',
+            itemStyle: {
+              color: '#00FF00'
+            }
+          },
+          {
+            value: 1548,
+            name: '北京',
+            itemStyle: {
+              color: 'yellow'
+            }
+          }
+        ],
+        // itemStyle: {
+        //   emphasis: {
+        //     shadowBlur: 10,
+        //     shadowOffsetX: 0,
+        //     shadowColor: 'rgba(9, 9, 9, 0.5)'
+        //   }
+        // }
+      }]
+    };;
+    if (option1 && typeof option1 === "object") {
+      myChart1.setOption(option1, true);
+    }
+
+    //右上1
+    var myChart2 = echarts.init(document.getElementById('main2'));
+    option2 = {
+      color: ['#99cc00'],
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow'
+        }
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      xAxis: [{
+        type: 'value',
+        axisTick: {
+          alignWithLabel: true,
+          show: false
+        },
+        splitLine: {
+          // show: false,
+          lineStyle: {
+            color: '#717b8e',
+            type: 'dashed'
+          }
+        }, //去除网格线
+        axisLabel: {
+          textStyle: {
+            color: '#fff',
+            interval: 0,
+            // fontSize:'16'
+          },
+          formatter: '{value}万元'
+        },
+        axisLine: {
+          lineStyle: {
+            color: '#fff',
+            // width: 1, //这里是坐标轴的宽度
+          }
+        },
+      }],
+      yAxis: [{
+        type: 'category',
+        data: ['北京', '上海', '西安', '沈阳', '重庆', '武汉', '常州'],
+        // data: serveName,// 这个地方使用的是后台穿过来经过处理的数据，也就是你额的那些城市
+        axisTick: {
+          alignWithLabel: true,
+          show: false
+        },
+        splitLine: {
+          show: false,
+
+        }, //去除网格线
+        axisLabel: {
+          textStyle: {
+            color: '#fff'
+          },
+          interval: 0,
+          // rotate: 45,
+          fontSize: '12'
+        },
+        axisLine: {
+          lineStyle: {
+            color: '#fff',
+            // width: 1, //这里是坐标轴的宽度
+          }
+        },
+      }],
+
+      series: [{
+        label: {
+          normal: {
+            show: true,
+            color: '#fff',
+            position: 'right'
+          }
+        },
+        name: '总数',
+        barWidth: 15,
+        type: 'bar',
+        data: [10, 52, 200, 334, 390, 200, 100]
+        // data: serveCount//穿过来的数据
+      }]
+      // series: [{
+      // name: '2011年',
+      // type: 'bar',
+      // data: [0, 500, 29034, 104970, 131744, 630230]
+      // }]
+    };
+    myChart2.setOption(option2);
+
+    //右上2
+    var myChart3 = echarts.init(document.getElementById('main3'));
+    option3 = {
+      xAxis: [{
+        type: 'category',
+        data: ['2010年', '2011年', '2012年', '2013年'],
+        axisLabel: {
+          interval: 0,
+        },
+      }],
+      yAxis: {
+        type: 'value',
+        axisLabel: {
+          formatter: '{value}万'
+        },
+        axisPointer: {
+          snap: true
+        }
+      },
+      grid: {
+        left: '20%'
+      },
+      itemStyle: {
+        color: 'red'
+      },
+      series: [{
+        data: [820, 932, 901, 934],
+        type: 'line'
+      }]
+    };
+    myChart3.setOption(option3);
+
+    //左下1
+    var myChart4 = echarts.init(document.getElementById('main4'));
+    option4 = {
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow'
+        }
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      xAxis: [{
+        type: 'value',
+        axisTick: {
+          alignWithLabel: true,
+          show: false
+        },
+        splitLine: {
+          // show: false,
+          lineStyle: {
+            color: '#717b8e',
+            type: 'dashed'
+          }
+        }, //去除网格线
+        axisLabel: {
+          textStyle: {
+            color: '#fff',
+            interval: 0,
+            // fontSize:'16'
+          },
+          formatter: '{value}万元'
+        },
+        axisLine: {
+          lineStyle: {
+            color: '#fff',
+            // width: 1, //这里是坐标轴的宽度
+          }
+        },
+      }],
+      yAxis: [{
+        type: 'category',
+        data: ['北京', '上海', '西安', '沈阳', '重庆', '武汉', '常州'],
+        // data: serveName,// 这个地方使用的是后台穿过来经过处理的数据，也就是你额的那些城市
+        axisTick: {
+          alignWithLabel: true,
+          show: false
+        },
+        splitLine: {
+          show: false,
+
+        }, //去除网格线
+        axisLabel: {
+          textStyle: {
+            color: '#fff'
+          },
+          interval: 0,
+          // rotate: 45,
+          fontSize: '12'
+        },
+        axisLine: {
+          lineStyle: {
+            color: '#fff',
+            // width: 1, //这里是坐标轴的宽度
+          }
+        },
+      }],
+      itemStyle: {
+        color: '#0000CD'
+      },
+      series: [{
+        label: {
+          normal: {
+            show: true,
+            color: '#fff',
+            position: 'right'
+          }
+        },
+        name: '总数',
+        barWidth: 15,
+        type: 'bar',
+        data: [10, 52, 200, 334, 390, 200, 100]
+        // data: serveCount//穿过来的数据
+      }]
+    };
+    myChart4.setOption(option4);
+
+    //下2
+    var myChart5 = echarts.init(document.getElementById('main5'));
+    option5 = {
+      tooltip: {
+        formatter: "{a} <br/>{b} : {c}%"
+      },
+      series: [{
+        name: '业务指标',
+        type: 'gauge',
+        radius: '100%',
+        center: ['50%', '60%'],
+        axisLine: { // 坐标轴线
+          lineStyle: { // 属性lineStyle控制线条样式
+            color: [
+              [0.6, 'lime'],
+              [1, '#6A5ACD']
+            ],
+          }
+        },
+        axisTick: { // 坐标轴小标记
+          // length: 15, // 属性length控制线长
+          lineStyle: { // 属性lineStyle控制线条样式
+            color: 'auto'
+          },
+          formatter: '{value}%'
+        },
+        // splitLine: { // 分隔线
+        //   length: 20, // 属性length控制线长
+        //   lineStyle: { // 属性lineStyle（详见lineStyle）控制线条样式
+        //     color: 'auto'
+        //   }
+        // },
+        detail: {
+          formatter: '{value}%'
+        },
+        data: [{
+          value: 60,
+          name: '完成率',
+          itemStyle: {
+            color: 'yellow'
+          }
+        }]
+      }]
+    };
+    myChart5.setOption(option5);
+
+
+    //下三
+    var myChart6 = echarts.init(document.getElementById('main6'));
+    option6 = {
+      tooltip: {
+        formatter: "{a} <br/>{b} : {c}%"
+      },
+      toolbox: {
+        feature: {
+          restore: {},
+          saveAsImage: {}
+        }
+      },
+      series: [{
+        name: '业务指标',
+        type: 'gauge',
+        radius: '100%',
+        center: ['50%', '60%'],
+        detail: {
+          formatter: '{value}%'
+        },
+        data: [{
+          value: 50,
+          name: '完成率'
+        }]
+      }]
+    };
+
+    setInterval(function () {
+      option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
+      myChart.setOption(option, true);
+    }, 2000);
+    myChart6.setOption(option6);
+
+    //下四
+    var dom7 = document.getElementById("main7");
+    var myChart7 = echarts.init(dom7);
+    var app = {};
+    option7 = null;
+    option7 = {
+      // title: {
+      //   text: '板块收入统计',
+      //   subtext: '纯属虚构',
+      //   x: 'center',
+      //   textStyle: {
+      //     fontWeight: 'normal',
+      //     color: 'yellow'
+      //   }
+      // },
+      tooltip: {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+      },
+      series: [{
+        name: '单位项目分布',
+        type: 'pie',
+        radius: '80%',
+        center: ['50%', '50%'],
+        data: [{
+            value: 335,
+            name: '上海',
+            itemStyle: {
+              color: 'red'
+            }
+          },
+          {
+            value: 310,
+            name: '重庆',
+            itemStyle: {
+              color: '#6A5ACD'
+            }
+          },
+          {
+            value: 234,
+            name: '武汉'
+          },
+          {
+            value: 135,
+            name: '常州',
+            itemStyle: {
+              color: '#00FF00'
+            }
+          },
+          {
+            value: 1548,
+            name: '北京',
+            itemStyle: {
+              color: 'yellow'
+            }
+          }
+        ]
+      }]
+    };;
+    if (option7 && typeof option1 === "object") {
+      myChart7.setOption(option7, true);
+    }
+
+
+
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");
+    var point = new BMap.Point(116.404, 39.915);
+    map.centerAndZoom(point, 5.5);
+    map.disableDoubleClickZoom(true);
+    map.addControl(new BMap.NavigationControl());
+    map.addControl(new BMap.ScaleControl());
+    map.addControl(new BMap.OverviewMapControl());
+    map.enableScrollWheelZoom();
+
+    var sContent = "<div class='tab1' id='tab1'>" +
+      "<div class='menuyq'>" +
+      "<div><h4>项目信息</h4></div>" +
+
+      "<div class='menudiv' style='margin-top:3px' >" +
+      "<div id='con_one_0'>" +
+      "在建工程项目。。。。。<br/>" +
+      "计划投资/实际投资：" + "1000万/1200万" + "<br/>" +
+      "计划工期/实际工期：" + "2年/2.5年" + "<br/>" +
+      "</div>" +
+      "<div >" +
+      "<img style='float:left;margin:4px' id='imgDemo' src='../img/gc.jpg' width='250' height='104' title='工程'/>" +
+      "</div>" +
+
+      "</div>" +
+      "</div>";
+    // 编写自定义函数,创建标注
+    function addMarker(point, label, iconpath, address) {
+
+      var myIcon = new BMap.Icon(iconpath, new BMap.Size(50, 50));
+      var marker = new BMap.Marker(point, {
+        icon: myIcon
+      });
+
+      map.addOverlay(marker);
+      marker.setLabel(label);
+      //marker.setIcon('../img/iconh1.png');
+      //marker.setIcon('../img/iconr1.png');
+      marker.setTitle(address);
+      var infoWindow = new BMap.InfoWindow(sContent); //创建信息窗口对象
+      marker.addEventListener("click", function () {
+        this.openInfoWindow(infoWindow);
+      });
+    }
+
+    function addMarker2(point, label, iconpath, address) {
+
+      var myIcon = new BMap.Icon(iconpath, new BMap.Size(50, 50));
+      var marker = new BMap.Marker(point, {
+        icon: myIcon
+      });
+
+      map.addOverlay(marker);
+      marker.setLabel(label);
+      //marker.setIcon('../img/iconh1.png');
+      //marker.setIcon('../img/iconr1.png');
+      marker.setTitle(address);
+      var infoWindow = new BMap.InfoWindow(sContent); //创建信息窗口对象
+      marker.addEventListener("click", function () {
+        modalOpen();
+      });
+    }
+
+    var geoInfo2 = [{
+        id: 21,
+        "title": "重庆研究院",
+        lon: 106.436599,
+        lat: 29.516193,
+        icon: '../img/doth3.png',
+        "tel": "(023)65239981",
+        "subTitle": "重庆市九龙坡区二郎科技新城科城路6号"
+      },
+      {
+        id: 37,
+        "title": "重庆设计院",
+        lon: 106.504839,
+        lat: 29.551415,
+        icon: '../img/doth2.png',
+        "tel": "",
+        "subTitle": "重庆市渝中区经纬大道782号"
+      },
+      {
+        id: 33,
+        "title": "中煤科工集团",
+        lon: 116.432287,
+        lat: 39.968663,
+        icon: '../img/doth1.png',
+        "tel": "",
+        "subTitle": "北京市朝阳区和平街十三区35号楼"
+      },
+      {
+        id: 33,
+        "title": "天地奔牛",
+        lon: 106.196912,
+        lat: 38.497594,
+        icon: '../img/doth2.png',
+        "tel": "",
+        "subTitle": "银川市金凤区上海西路513号"
+      },
+
+      {
+        id: 21,
+        "title": "西安研究院",
+        lon: 108.969435,
+        lat: 34.2510853,
+        icon: '../img/dotr3.png',
+        "tel": "",
+        "subTitle": "西安市碑林区雁塔北路52"
+      },
+      {
+        id: 37,
+        "title": "唐山研究院有限公司",
+        lon: 118.175789,
+        lat: 39.631826,
+        icon: '../img/dotr2.png',
+        "tel": "",
+        "subTitle": "新华西道21号"
+      },
+      {
+        id: 33,
+        "title": "王坡煤业",
+        lon: 112.742264,
+        lat: 35.680378,
+        icon: '../img/dotr1.png',
+        "tel": "",
+        "subTitle": "山西省晋城市泽州县东山村"
+      },
+      {
+        id: 33,
+        "title": "沈阳设计研究",
+        lon: 123.474445,
+        lat: 41.792613,
+        icon: '../img/doth3.png',
+        "tel": "",
+        "subTitle": "沈阳市沈河区先农坛路12号"
+      },
+
+      {
+        id: 21,
+        "title": "杭州研究院",
+        lon: 120.282918,
+        lat: 30.161398,
+        icon: '../img/dotr1.png',
+        "tel": "0571-82728709",
+        "subTitle": "拱秀路288号煤科大厦"
+      },
+      {
+        id: 37,
+        "title": "武汉设计研究院",
+        lon: 114.33721,
+        lat: 30.538374,
+        icon: '../img/dotr2.png',
+        "tel": "",
+        "subTitle": "中南路街办事处武珞路456号"
+      },
+      {
+        id: 33,
+        "title": "常州研究院有限公司",
+        lon: 119.942102,
+        lat: 31.776173,
+        icon: '../img/dotr2.png',
+        "tel": "(0519)86966044",
+        "subTitle": "木梳路1号"
+      },
+      {
+        id: 33,
+        "title": "太原研究院",
+        lon: 112.588037,
+        lat: 37.828797,
+        icon: '../img/doth3.png',
+        "tel": "(0351)7685029",
+        "subTitle": "山西省太原市小店区并州南路108号"
+      }
+
+
+    ];
+
+
+    var geoInfo1 = [{
+        id: 21,
+        "title": "重庆研究院",
+        lon: 106.436599,
+        lat: 29.516193,
+        icon: '../img/circlered1.png',
+        "tel": "(023)65239981",
+        "subTitle": "重庆市九龙坡区二郎科技新城科城路6号"
+      },
+      {
+        id: 37,
+        "title": "重庆设计院",
+        lon: 106.504839,
+        lat: 29.551415,
+        icon: '../img/circlered1.png',
+        "tel": "",
+        "subTitle": "重庆市渝中区经纬大道782号"
+      },
+      {
+        id: 33,
+        "title": "中煤科工集团",
+        lon: 116.432287,
+        lat: 39.968663,
+        icon: '../img/circlered1.png',
+        "tel": "",
+        "subTitle": "北京市朝阳区和平街十三区35号楼"
+      },
+      {
+        id: 33,
+        "title": "天地奔牛",
+        lon: 106.196912,
+        lat: 38.497594,
+        icon: '../img/circlered1.png',
+        "tel": "",
+        "subTitle": "银川市金凤区上海西路513号"
+      },
+
+      {
+        id: 21,
+        "title": "西安研究院",
+        lon: 108.969435,
+        lat: 34.2510853,
+        icon: '../img/circlegray1.png',
+        "tel": "",
+        "subTitle": "西安市碑林区雁塔北路52"
+      },
+      {
+        id: 37,
+        "title": "唐山研究院有限公司",
+        lon: 118.175789,
+        lat: 39.631826,
+        icon: '../img/circlegray1.png',
+        "tel": "",
+        "subTitle": "新华西道21号"
+      },
+      {
+        id: 33,
+        "title": "王坡煤业",
+        lon: 112.742264,
+        lat: 35.680378,
+        icon: '../img/circlegray1.png',
+        "tel": "",
+        "subTitle": "山西省晋城市泽州县东山村"
+      },
+      {
+        id: 33,
+        "title": "沈阳设计研究",
+        lon: 123.474445,
+        lat: 41.792613,
+        icon: '../img/circlegray1.png',
+        "tel": "",
+        "subTitle": "沈阳市沈河区先农坛路12号"
+      },
+
+      {
+        id: 21,
+        "title": "杭州研究院",
+        lon: 120.282918,
+        lat: 30.161398,
+        icon: '../img/circleblue1.png',
+        "tel": "0571-82728709",
+        "subTitle": "拱秀路288号煤科大厦"
+      },
+      {
+        id: 37,
+        "title": "武汉设计研究院",
+        lon: 114.33721,
+        lat: 30.538374,
+        icon: '../img/circleblue1.png',
+        "tel": "",
+        "subTitle": "中南路街办事处武珞路456号"
+      },
+      {
+        id: 33,
+        "title": "常州研究院有限公司",
+        lon: 119.942102,
+        lat: 31.776173,
+        icon: '../img/circleblue1.png',
+        "tel": "(0519)86966044",
+        "subTitle": "木梳路1号"
+      },
+      {
+        id: 33,
+        "title": "太原研究院",
+        lon: 112.588037,
+        lat: 37.828797,
+        icon: '../img/circleblue1.png',
+        "tel": "(0351)7685029",
+        "subTitle": "山西省太原市小店区并州南路108号"
+      }
+
+
+    ];
+
+    function look() {
+      modalOpen();
+    }
+
+    function modalOpen() {
+      $.fn.modalOpen({
+        id: "Form",
+        title: '营业收入详情',
+        url: 'mapys.html',
+        width: "800px",
+        height: "500px",
+        callBack: function (iframeId) {
+          top.frames[iframeId].AcceptClick();
+        }
+      });
+    };
+    $.fn.modalOpen = function (options) {
+      var defaults = {
+        id: null,
+        title: '系统窗口',
+        width: "100px",
+        height: "100px",
+        url: '',
+        shade: 0.3,
+        //btn: ['确认', '关闭'],
+        btnclass: ['btn btn-primary', 'btn btn-danger'],
+        callBack: null
+      };
+      var options = $.extend(defaults, options);
+      var _width = top.$(window).width() > parseInt(options.width.replace('px', '')) ? options.width : top.$(window).width() +
+        'px';
+      var _height = top.$(window).height() > parseInt(options.height.replace('px', '')) ? options.height : top.$(
+        window).height() + 'px';
+      layer.open({
+        id: options.id,
+        type: 2,
+        shade: options.shade,
+        title: options.title,
+        fix: false,
+        area: [_width, _height],
+        content: options.url,
+        btn: options.btn,
+        btnclass: options.btnclass,
+        yes: function () {
+          options.callBack(options.id)
+        },
+        cancel: function () {
+          return true;
+        }
+      });
+    }
+
+    /**/
+
+    function addGC() {
+      for (var i = 0; i < geoInfo1.length; i++) {
+        var point = new BMap.Point(geoInfo1[i].lon, geoInfo1[i].lat);
+        var label = new BMap.Label(geoInfo1[i].title, {
+          offset: new BMap.Size(20, -10)
+        });
+        addMarker(point, label, geoInfo1[i].icon, geoInfo1[i].subTitle);
+      }
+    }
+
+    function addYS() {
+      for (var i = 0; i < geoInfo2.length; i++) {
+        var point = new BMap.Point(geoInfo2[i].lon, geoInfo2[i].lat);
+        var label = new BMap.Label(geoInfo2[i].title, {
+          offset: new BMap.Size(20, -10)
+        });
+        addMarker2(point, label, geoInfo2[i].icon, geoInfo2[i].subTitle);
+      }
+    }
+    addYS();
+    //点聚合 end
+    function bgc() {
+      deletePoint();
+      addGC();
+    }
+
+    function bys() {
+      deletePoint();
+      addYS();
+    }
+
+    function deletePoint() {
+      var allOverlay = map.getOverlays();
+      for (var i = 0; i < allOverlay.length - 1; i++) {
+        map.removeOverlay(allOverlay[i]);
+      }
+      return false;
+    }
+  </script>
+</body>
+
+</html>
